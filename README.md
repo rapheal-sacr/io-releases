@@ -70,16 +70,60 @@ IO is one window for all your agents. You describe a task; IO picks the agent (o
 
 ## Install
 
-Download the latest release from the [Releases page](https://github.com/rapheal-sacr/io-releases/releases/latest):
+Go to the [latest release](https://github.com/rapheal-sacr/io-releases/releases/latest) and, under **Assets**, download the file for your computer:
 
-| System | File | First launch |
-|---|---|---|
-| macOS (Apple silicon) | `IO-<version>-arm64.dmg` | Drag IO to Applications. The first time, macOS asks to confirm: System Settings › Privacy & Security › **Open Anyway**. |
-| Windows 10/11 (x64) | `IO-Setup-<version>.exe` | SmartScreen may say "Windows protected your PC": **More info › Run anyway**. |
-| Linux (x64) | `IO-<version>-x86_64.AppImage` | `chmod +x IO-*.AppImage` and run it. Needs Ubuntu 24.04, Debian 13, Fedora 40 or newer. |
+| System | Download |
+|---|---|
+| macOS 12 or later, Apple silicon (M1 or newer) | `IO-<version>-arm64.dmg` |
+| Windows 10 or 11 (x64) | `IO-Setup-<version>.exe` |
+| Linux (x64): Ubuntu 24.04, Debian 13, Fedora 40 or newer | `IO-<version>-x86_64.AppImage` |
 
-On first launch IO offers to download the plan agents you use (Claude Code, Codex, Antigravity) and sign you in with each app's own login. IO updates itself.
+The other files (`.zip`, `.blockmap`, `.yml`, `.json`) are for IO's self-update; you don't need them.
 
+### macOS
+
+1. Open the `.dmg` you downloaded.
+2. Drag **IO** onto the **Applications** folder in that window, then eject the disk image (⏏ next to it in Finder's sidebar).
+3. Open **IO** from Applications. IO isn't signed with an Apple Developer ID yet, so macOS says it can't verify it: click **Done** (not Move to Trash).
+4. Open **System Settings › Privacy & Security**, scroll down to **Security**, and next to "IO was blocked to protect your Mac" click **Open Anyway**. Enter your Mac password and click **Open Anyway** again.
+
+IO opens, and you won't be asked again. If you opened IO from Downloads or the disk image, it offers to move itself to Applications: say yes, as it can update itself only from there.
+
+After an update, macOS may ask once or twice for your password to let IO use "IO Safe Storage" (where your API keys are kept), usually at your first message to an agent on an API key. Enter it and click **Always Allow**.
+
+### Windows
+
+1. Run `IO-Setup-<version>.exe`.
+2. IO isn't code-signed yet, so SmartScreen may say "Windows protected your PC". Click **More info**, then **Run anyway**.
+3. Follow the installer. It installs IO for your user only (no administrator rights needed); you can pick another folder if you like.
+4. Open IO from the Start menu or the desktop shortcut.
+
+### Linux
+
+1. Make the AppImage runnable and start it:
+   ```bash
+   chmod +x IO-*-x86_64.AppImage
+   ./IO-*-x86_64.AppImage
+   ```
+   Or in your file manager: right-click the file › Properties › Permissions › **Allow executing file as program**, then double-click it.
+2. If it doesn't start and mentions FUSE, install it once: `sudo apt install libfuse2t64` on Ubuntu 24.04 and newer (`libfuse2` on Debian), or `sudo dnf install fuse-libs` on Fedora.
+3. Keep the AppImage somewhere it can stay, such as `~/Applications`: IO updates itself in place.
+
+### First launch, on every system
+
+- **Choose your agents:** IO asks which plan agents to download (Claude Code, Codex, Antigravity). Pick any, all or none; you can change this later in **Settings › AI providers**.
+- **Sign in to your plans** there with each app's own login (Claude, ChatGPT, Google). If you're already signed in to Claude Code or Codex on this computer, IO uses that sign-in.
+- **Add API keys** (Anthropic, OpenAI, Google or OpenRouter) in the same place to use Forge and your own agents. Keys are encrypted with your system keychain.
+
+### Updates
+
+IO checks for updates by itself. When one is ready, **Update available** shows at the bottom of the sidebar: click **Restart to update**. IO checks that the update is a genuine IO release before installing it.
+
+### Uninstalling
+
+- **macOS:** drag IO from Applications to the Trash. To remove your chats, settings and keys too, delete `~/Library/Application Support/IO` and, in Keychain Access, "IO Safe Storage".
+- **Windows:** Settings › Apps › Installed apps › **IO** › Uninstall. Your data is in `%APPDATA%\IO`.
+- **Linux:** delete the AppImage. Your data is in `~/.config/IO`.
 
 ## Privacy and security
 
